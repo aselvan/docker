@@ -1,6 +1,3 @@
-# docker
-Docker registry with misl docker images
-
 # docker images
 
 ### Misl. collection of docker images.
