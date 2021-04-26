@@ -37,7 +37,7 @@ FROM alpine:3.13
 LABEL net.selvans.image.author="Arul Selvan <github@selvans.net>"
 LABEL net.selvans.image.maintainer="Arul Selvan <github@selvans.net>"
 LABEL net.selvans.image.description="compact openjdk16 alpine based image with selective java components"
-LABEL net.selvans.image.url="https://selvans.net/"
+LABEL net.selvans.image.url="https://github.com/aselvan/docker"
 LABEL net.selvans.image.version="1.1"
 LABEL net.selvans.image.alpine.version="3.13"
 LABEL net.selvans.image.openjdk.version="16"
