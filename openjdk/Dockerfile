@@ -26,7 +26,7 @@ FROM openjdk:16-jdk-alpine3.13 AS jdkimage
 RUN $JAVA_HOME/bin/jlink \
   --module-path /opt/jdk/jmods \
   --verbose \
-  --add-modules java.base,java.logging,java.xml,java.sql,java.naming,java.rmi,java.desktop,java.management,java.security.jgss \
+  --add-modules java.base,java.logging,java.xml,java.sql,java.naming,java.rmi,java.desktop,java.management,java.security.jgss,java.instrument \
   --output /opt/jdk-minimal \
   --compress 2 \
   --no-header-files
