@@ -47,15 +47,13 @@ COPY --from=jdkimage /opt/jdk-minimal /opt/java
 ENV JAVA_HOME=/opt/java
 ENV PATH="/opt/java/bin:$PATH"
 
-# install anything else we need on the vanila image
-RUN apk add --update --no-cache tzdata
+# install basic tools we may need on the vanila image
+RUN apk add --update --no-cache tzdata netcat-openbsd bind-tools
 
-# TODO: 
-# You can edit the following lines to copy your java app, libs, jars etc 
-# and start on load
+# TODO: edit the following lines to run your java app
 
-# 1. add your java application here
-#ADD /path/to/your/java/app /home/yourapp
+# 1. add your java application, jars, libs, resources, dependencies etc here.
+#ADD /path/to/yourapp.jar /home/yourapp.jar
 
-# 2. start your applicaiton on forground
-#CMD ["/home/yourapp/bin/start.sh", "args"]
+# 2. start your application
+#CMD ["java", "--add-opens","java.base/java.lang=ALL-UNNAMED","-jar", "/home/yourapp.jar"]
