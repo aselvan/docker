@@ -4,7 +4,7 @@
 # This builds a compact docker image of openjdk with selective java components
 #
 # Build:
-#   docker build --rm -t docker.pkg.github.com/aselvan/docker/openjdk:16 .
+#   docker build --rm -t docker.pkg.github.com/aselvan/docker/openjdk:16 -f ./Dockerfile.openjdk16 .
 #
 # Push:
 #   cat ~/.git_docker_token |docker login docker.pkg.github.com -u aselvan --password-stdin
