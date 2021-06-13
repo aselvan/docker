@@ -17,11 +17,11 @@
 #   The 'sample' self-signed cert used is created as follows, replace it w/ yours ofcourse!
 #
 #   # create the cert and private key
-#   openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -keyout server.crt.key -out server.crt
+#   openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -keyout sample.crt.key -out sample.crt
 #   
 #   # get csr (for signing later with a certified authority)
-#   openssl req -new -key server.crt.key -out server.csr
-# 
+#   openssl req -new -key sample.crt.key -out server.csr
+#
 # Author:  Arul Selvan
 # Version: Sep 5, 2019
 #
@@ -42,4 +42,5 @@ RUN apk add --update --no-cache tzdata netcat-openbsd bind-tools
 
 # install cert, config etc
 COPY haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg 
-COPY server.crt server.crt.key /etc/ssl/certs/ 
+COPY sample.crt  /etc/ssl/certs/server.crt
+COPY sample.crt.key /etc/ssl/certs/server.crt.key
