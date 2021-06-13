@@ -17,3 +17,8 @@
   This is a nginx test image for test/debug purpose.
   The image is built at dockerhub [https://hub.docker.com/repository/docker/aselvan/nginx-hello] 
   and can be pulled by `docker pull aselvan/nginx-hello`
+
+- #### /haproxy
+  This is a haproxy container [just change haproxy.cfg and create your SSL certs to use]
+  The image is built at dockerhub [https://hub.docker.com/repository/docker/aselvan/haproxy]
+  and can be pulled by `docker pull aselvan/haproxy`
