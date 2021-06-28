@@ -46,6 +46,7 @@ LABEL net.selvans.image.license="MIT License"
 COPY --from=jdkimage /opt/jdk-minimal /opt/java
 ENV JAVA_HOME=/opt/java
 ENV PATH="/opt/java/bin:$PATH"
+ENV JAVA_OPT="" 
 
 # install basic tools we may need on the vanila image
 RUN apk add --update --no-cache tzdata netcat-openbsd bind-tools
