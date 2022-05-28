@@ -1,0 +1,106 @@
+#
+# sample-stack.yml
+#
+# Deployment stack for sample component
+#
+# Author:  Arul Selvan
+# Version: May 28, 2022
+#
+
+version: "3.4"
+
+services:
+  nginx:
+    image: ${SAMPLE_NGINX_IMAGE}
+    container_name: sample-web
+    stop_grace_period: 10s
+
+    depends_on:
+      - fpm
+
+    labels:
+      com.selvansoft.description: "Sample Web"
+
+    healthcheck:
+      test: nc -w 1 -z localhost ${SAMPLE_INT_PORT} || exit 1
+      interval: 1m30s
+      timeout: 2s
+      retries: 10
+
+    deploy:
+      mode: global
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 4G
+
+    ports:
+      - ${SAMPLE_EXT_PORT}:${SAMPLE_INT_PORT}
+
+
+    networks:
+      - sample-net
+
+    env_file: 
+      #- /etc/default/sample.env
+      - /tmp/sample.env
+
+  fpm:
+    image: ${SAMPLE_FPM_IMAGE}
+    container_name: sample-fpm    
+    stop_grace_period: 10s
+
+    depends_on:
+      - db
+
+    deploy:
+      mode: global
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 4G
+
+    networks:
+      sample-net:
+        aliases:
+          - fpmvip
+
+    env_file:
+      #- /etc/default/sample.env
+      - /tmp/sample.env
+#
+# NOTE: your DB should really be an external node, this is just sample
+#
+  db:
+    image: ${SAMPLE_MYSQL_IMAGE}
+    container_name: sample-db
+    stop_grace_period: 10s
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: ${SAMPLE_MYSQL_PASSWORD}
+      MYSQL_DATABASE: sample-selvansoft
+
+# replace the mysql datastore image volume for location of DB outside of container
+#    volumes:
+#      - /Users/arul/mysql-data:/var/lib/mysql
+
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 4G
+
+    networks:
+      sample-net:
+        aliases:
+          - mysqlvip
+
+    env_file:
+      #- /etc/default/sample.env
+      - /tmp/sample.env
+
+# private overlay network for this stack
+networks:
+  sample-net:
+    driver: bridge
